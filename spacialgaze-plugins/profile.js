@@ -428,7 +428,7 @@ exports.commands = {
 				profile += '&nbsp;<font color="#24678d"><b>' + global.currencyPlural + ':</b></font> ' + currency + '<br />';
 				profile += '&nbsp;<font color="#24678d"><b>Last Seen:</b></font> ' + getLastSeen(toId(username)) + '</font><br />';
 				if (Db.friendcodes.has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><b>Friend Code:</b></font> ' + Db.friendcodes.get(toId(username)) '<br />';
+					profile += '&nbsp;<font color="#24678d"><b>Friend Code:</b></font> ' + Db.friendcodes.get(toId(username)) +'<br />';
 					
 				}
 				if (Db.teams.has(toId(username))) { 
