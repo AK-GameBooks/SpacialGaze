@@ -70,45 +70,45 @@ Profile.prototype.team = function (person) {
 	let teamcss = 'float:center;border:none;background:none;';
 
 	let noSprite = '<img src=http://play.pokemonshowdown.com/sprites/bwicons/0.png>';
-	let one = Db('teams').get([person, 'one']);
-	let two = Db('teams').get([person, 'two']);
-	let three = Db('teams').get([person, 'three']);
-	let four = Db('teams').get([person, 'four']);
-	let five = Db('teams').get([person, 'five']);
-	let six = Db('teams').get([person, 'six']);
-	if (!Db('teams').has(person)) return '<div style="' + teamcss + '" >' + noSprite + noSprite + noSprite + noSprite + noSprite + noSprite + '</div>';
+	let one = Db.teams.get([person, 'one']);
+	let two = Db.teams.get([person, 'two']);
+	let three = Db.teams.get([person, 'three']);
+	let four = Db.teams.get([person, 'four']);
+	let five = Db.teams.get([person, 'five']);
+	let six = Db.teams.get([person, 'six']);
+	if (!Db.teams.has(person)) return '<div style="' + teamcss + '" >' + noSprite + noSprite + noSprite + noSprite + noSprite + noSprite + '</div>';
 
 	function iconize(link) {
 		return '<button id="kek" name="send" value="/dt ' + link + '" style="background:transparent;border:none;"><img src="http://www.serebii.net/pokedex-sm/icon/' + link + '.png"></button>';
 	}
 	//return '<div style="' + teamcss + '">' + '<br>' + iconize(one) + iconize(two) + iconize(three) + '<br>' + iconize(four) + iconize(five) + iconize(six) + '</div>';*/
 	let teamDisplay = '<center><div style="' + teamcss + '">';
-	if (Db('teams').has([person, 'one'])) {
+	if (Db.teams.has([person, 'one'])) {
 		teamDisplay += iconize(one);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db('teams').has([person, 'two'])) {
+	if (Db.teams.has([person, 'two'])) {
 		teamDisplay += iconize(two);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db('teams').has([person, 'three'])) {
+	if (Db.teams.has([person, 'three'])) {
 		teamDisplay += iconize(three);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db('teams').has([person, 'four'])) {
+	if (Db.teams.has([person, 'four'])) {
 		teamDisplay += iconize(four);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db('teams').has([person, 'five'])) {
+	if (Db.teams.has([person, 'five'])) {
 		teamDisplay += iconize(five);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db('teams').has([person, 'six'])) {
+	if (Db.teams.has([person, 'six'])) {
 		teamDisplay += iconize(six);
 	} else {
 		teamDisplay += noSprite;
@@ -270,7 +270,7 @@ exports.commands = {
 	},
 		addmon: 'addteam',
 	addteam: function (target, room, user) {
-		if (!Db('hasteam').has(user.userid)) return this.errorReply('You dont have access to edit your team.');
+		if (!Db.hasteam.has(user.userid)) return this.errorReply('You dont have access to edit your team.');
 		if (!target) return this.parse('/teamhelp');
 		let parts = target.split(',');
 		let mon = parts[1].trim();
@@ -278,8 +278,8 @@ exports.commands = {
 		if (!parts[1]) return this.parse('/teamhelp');
 		let acceptable = ['one', 'two', 'three', 'four', 'five', 'six'];
 		if (!acceptable.includes(slot)) return this.parse('/teamhelp');
-		if (slot === 'one' || slot === 'two' || slot === 'three' || slot === 'four' || slot === 'five' || slot === 'six') {
-			Db('teams').set([user.userid, slot], mon);
+		if (slot === 'one' || slot === 'two' || slot === 'three' || slot === 'four' || slot === 'five' || slot === 'six') { 
+			Db.teams.set([user.userid, slot], mon);
 			this.sendReplyBox('You have added this pokemon to your team.');
 		} else {
 			return this.parse('/teamhelp');
@@ -289,7 +289,7 @@ exports.commands = {
 		if (!this.can('broadcast')) return false;
 		if (!target) return this.errorReply('USAGE: /giveteam USER');
 		let person = target.toLowerCase().trim();
-		Db('hasteam').set(person, 1);
+			Db.hasteam.set(person, 1);
 		this.sendReply(person + ' has been given the ability to set their team.');
 		Users(person).popup('You have been given the ability to set your profile team.');
 	},
@@ -298,8 +298,8 @@ exports.commands = {
 		if (!this.can('broadcast')) return false;
 		if (!target) return this.errorReply('USAGE: /taketeam USER');
 		let person = target.toLowerCase().trim();
-		if (!Db('hasteam').has(person)) return this.errorReply('This user does not have the ability to set their team.');
-		Db('hasteam').delete(person);
+		if (!Db.hasteam.has(person)) return this.errorReply('This user does not have the ability to set their team.');
+		ha.steam.delete(person);
 		this.sendReply('this user has had their ability to change their team taken from them.');
 		Users(person).popup('You have been stripped of your ability to set your team.');
 	},
@@ -428,9 +428,13 @@ exports.commands = {
 				profile += '&nbsp;<font color="#24678d"><b>' + global.currencyPlural + ':</b></font> ' + currency + '<br />';
 				profile += '&nbsp;<font color="#24678d"><b>Last Seen:</b></font> ' + getLastSeen(toId(username)) + '</font><br />';
 				if (Db.friendcodes.has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><b>Friend Code:</b></font> ' + Db.friendcodes.get(toId(username));
+					profile += '&nbsp;<font color="#24678d"><b>Friend Code:</b></font> ' + Db.friendcodes.get(toId(username)) '<br />';
+					
 				}
-				profile +=  + this.team(userid) +
+				if (Db.teams.has(toId(username))) { 
+					profile += Db.teams.get(toId(username));
+				}
+				
 				
 				profile += '<br clear="all">';
 				self.sendReplyBox(profile);
