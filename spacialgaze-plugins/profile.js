@@ -70,13 +70,13 @@ function getteam(user) {
 	let teamcss = 'float:center;border:none;background:none;';
 
 	let noSprite = '<img src=http://play.pokemonshowdown.com/sprites/bwicons/0.png>';
-	let one = Db.teams.get([person, 'one']);
-	let two = Db.teams.get([person, 'two']);
-	let three = Db.teams.get([person, 'three']);
-	let four = Db.teams.get([person, 'four']);
-	let five = Db.teams.get([person, 'five']);
-	let six = Db.teams.get([person, 'six']);
-	if (!Db.teams.has(person)) return '<div style="' + teamcss + '" >' + noSprite + noSprite + noSprite + noSprite + noSprite + noSprite + '</div>';
+	let one = Db.teams.get([user, 'one']);
+	let two = Db.teams.get([user, 'two']);
+	let three = Db.teams.get([user, 'three']);
+	let four = Db.teams.get([user, 'four']);
+	let five = Db.teams.get([user, 'five']);
+	let six = Db.teams.get([user, 'six']);
+	if (!Db.teams.has(user)) return '<div style="' + teamcss + '" >' + noSprite + noSprite + noSprite + noSprite + noSprite + noSprite + '</div>';
 
 	function iconize(link) {
 		return '<button id="kek" name="send" value="/dt ' + link + '" style="background:transparent;border:none;"><img src="http://www.serebii.net/pokedex-sm/icon/' + link + '.png"></button>';
