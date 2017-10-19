@@ -66,6 +66,57 @@ function showBadges(user) {
 	return '';
 }
 
+Profile.prototype.team = function (person) {
+	let teamcss = 'float:center;border:none;background:none;';
+
+	let noSprite = '<img src=http://play.pokemonshowdown.com/sprites/bwicons/0.png>';
+	let one = Db('teams').get([person, 'one']);
+	let two = Db('teams').get([person, 'two']);
+	let three = Db('teams').get([person, 'three']);
+	let four = Db('teams').get([person, 'four']);
+	let five = Db('teams').get([person, 'five']);
+	let six = Db('teams').get([person, 'six']);
+	if (!Db('teams').has(person)) return '<div style="' + teamcss + '" >' + noSprite + noSprite + noSprite + noSprite + noSprite + noSprite + '</div>';
+
+	function iconize(link) {
+		return '<button id="kek" name="send" value="/dt ' + link + '" style="background:transparent;border:none;"><img src="http://www.serebii.net/pokedex-sm/icon/' + link + '.png"></button>';
+	}
+	//return '<div style="' + teamcss + '">' + '<br>' + iconize(one) + iconize(two) + iconize(three) + '<br>' + iconize(four) + iconize(five) + iconize(six) + '</div>';*/
+	let teamDisplay = '<center><div style="' + teamcss + '">';
+	if (Db('teams').has([person, 'one'])) {
+		teamDisplay += iconize(one);
+	} else {
+		teamDisplay += noSprite;
+	}
+	if (Db('teams').has([person, 'two'])) {
+		teamDisplay += iconize(two);
+	} else {
+		teamDisplay += noSprite;
+	}
+	if (Db('teams').has([person, 'three'])) {
+		teamDisplay += iconize(three);
+	} else {
+		teamDisplay += noSprite;
+	}
+	if (Db('teams').has([person, 'four'])) {
+		teamDisplay += iconize(four);
+	} else {
+		teamDisplay += noSprite;
+	}
+	if (Db('teams').has([person, 'five'])) {
+		teamDisplay += iconize(five);
+	} else {
+		teamDisplay += noSprite;
+	}
+	if (Db('teams').has([person, 'six'])) {
+		teamDisplay += iconize(six);
+	} else {
+		teamDisplay += noSprite;
+	}
+	teamDisplay += '</div></center>';
+	return teamDisplay;
+};
+
 exports.commands = {
 	vip: {
 		give: function (target, room, user) {
@@ -217,6 +268,66 @@ exports.commands = {
 			);
 		},
 	},
+		addmon: 'addteam',
+	addteam: function (target, room, user) {
+		if (!Db('hasteam').has(user.userid)) return this.errorReply('You dont have access to edit your team.');
+		if (!target) return this.parse('/teamhelp');
+		let parts = target.split(',');
+		let mon = parts[1].trim();
+		let slot = parts[0];
+		if (!parts[1]) return this.parse('/teamhelp');
+		let acceptable = ['one', 'two', 'three', 'four', 'five', 'six'];
+		if (!acceptable.includes(slot)) return this.parse('/teamhelp');
+		if (slot === 'one' || slot === 'two' || slot === 'three' || slot === 'four' || slot === 'five' || slot === 'six') {
+			Db('teams').set([user.userid, slot], mon);
+			this.sendReplyBox('You have added this pokemon to your team.');
+		} else {
+			return this.parse('/teamhelp');
+		}
+	},
+		giveteam: function (target, room, user) {
+		if (!this.can('broadcast')) return false;
+		if (!target) return this.errorReply('USAGE: /giveteam USER');
+		let person = target.toLowerCase().trim();
+		Db('hasteam').set(person, 1);
+		this.sendReply(person + ' has been given the ability to set their team.');
+		Users(person).popup('You have been given the ability to set your profile team.');
+	},
+
+	taketeam: function (target, room, user) {
+		if (!this.can('broadcast')) return false;
+		if (!target) return this.errorReply('USAGE: /taketeam USER');
+		let person = target.toLowerCase().trim();
+		if (!Db('hasteam').has(person)) return this.errorReply('This user does not have the ability to set their team.');
+		Db('hasteam').delete(person);
+		this.sendReply('this user has had their ability to change their team taken from them.');
+		Users(person).popup('You have been stripped of your ability to set your team.');
+	},
+
+	teamhelp: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+		this.sendReplyBox('<center><b>Teams In Profiles - Coded By Execute, edited by DeathlyPlays :3</b></center><br><br>' +
+			'<b>/addmon (slot), (dex number) -</b >usage. The dex number must be the actual dex number of the pokemon you want.<br>' +
+			'FYI: Slot - we mean what slot you want the pokemon to be. valid entries for this are: one, two, three, four, five, six.<br>' +
+			'Chosing the right slot is crucial because if you chose a slot that already has a pokemon, it will overwrite that data and replace it. This can be used to replace / reorder what pokemon go where.<br>' +
+			'If the Pokemon is in the first 99 Pokemon, do 0(number), and for Megas do (dex number)-Mega.<br>' +
+			'For example: Mega Venusaur would be 003-Mega');
+	},
+	setpet: function (target, room, user) {
+		if (!target) return this.errorReply('USAGE: /setpet target, slot (one or two), pokemon name');
+		let targets = target.split(',');
+		for (let u = 0; u < targets.length; u++) targets[u] = targets[u].trim();
+		let targetUser = targets[0].toLowerCase().trim();
+		let slot = targets[1];
+		let pets = targets[2].toLowerCase();
+		let acceptable = ['one', 'two'];
+		if (!acceptable.includes(slot)) return this.errorReply('USAGE: /setpet target, slot (one or two), pokemon name');
+		if (!targets[2]) return this.errorReply('USAGE: /setpet target, slot (one or two), pokemon name');
+		if (slot === 'one' || slot === 'two') {
+			Db('pets').set([targetUser, slot], pets);
+			this.parse('/profile ' + targetUser);
+		}
+	},
 	fc: 'friendcode',
 	friendcode: {
 		add: 'set',
@@ -319,6 +430,8 @@ exports.commands = {
 				if (Db.friendcodes.has(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><b>Friend Code:</b></font> ' + Db.friendcodes.get(toId(username));
 				}
+				profile +'&nbsp; + this.team(userid) +
+				
 				profile += '<br clear="all">';
 				self.sendReplyBox(profile);
 			});
