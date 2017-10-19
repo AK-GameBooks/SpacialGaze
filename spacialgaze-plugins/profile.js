@@ -279,7 +279,7 @@ exports.commands = {
 		let acceptable = ['one', 'two', 'three', 'four', 'five', 'six'];
 		if (!acceptable.includes(slot)) return this.parse('/teamhelp');
 		if (slot === 'one' || slot === 'two' || slot === 'three' || slot === 'four' || slot === 'five' || slot === 'six') { 
-			Db.teams.set([user.userid, slot], mon);
+			Db.teams.set([user, slot], mon);
 			this.sendReplyBox('You have added this pokemon to your team.');
 		} else {
 			return this.parse('/teamhelp');
