@@ -116,7 +116,7 @@ SG.giveDailyReward = function (user) {
 		Db.DailyBonus.set(ip, [reward, Date.now()]);
 	}
 	Economy.writeMoney(user.userid, reward);
-	user.send('|popup||wide||html| <center><u><b><font size="3">SpacialGaze Daily Bonus</font></b></u><br>You have been awarded ' + reward + ' Stardust.<br>' + showDailyRewardAni(reward) + '<br>Because you have connected to the server for the past ' + (reward === 1 ? 'Day' : reward + ' Days') + '.</center>');
+	user.send('|popup||wide||html| <center><u><b><font size="3">Impulse Daily Bonus</font></b></u><br>You have been awarded ' + reward + ' IMP Coins.<br>' + showDailyRewardAni(reward) + '<br>Because you have connected to the server for the past ' + (reward === 1 ? 'Day' : reward + ' Days') + '.</center>');
 };
 
 // last two functions needed to make sure SG.regdate() fully works
