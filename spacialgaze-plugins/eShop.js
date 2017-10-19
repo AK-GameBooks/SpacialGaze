@@ -27,10 +27,10 @@ function writeShop() {
 }
 
 function shopDisplay() {
-	let output = '<div style="max-height:300px; width: 100%; overflow: scroll"><table style="border:1px solid; border-radius: 4px; width: 100%; background: dodgerblue;"><tr><th colspan="3" style="color: black"><font size="4"><b>Impulse Shop</b></font></th></tr>';
+	let output = '<div style="max-height:300px; width: 100%; overflow: scroll"><table style="border:1px solid; border-radius: 4px; width: 100%; background: lightblue;"><tr><th colspan="3" style="color: black"><font size="4"><b>Impulse Shop</b></font></th></tr>';
 	for (let i in SG.eShop) {
 		if (!SG.eShop[i]) continue;
-		output += '<tr><td style="border: 2px solid #070e96; width: 20%; text-align: center"><button name="send" value="/eshop buy ' + SG.eShop[i].id + '">' + SG.eShop[i].name + '</button></td><td style="border: 2px solid #070e96; width: 70%; text-align: center">' + SG.eShop[i].desc + '</td><td style="border: 2px solid #070e96; width: 10%; text-align: center">' + SG.eShop[i].price + '</td></tr>';
+		output += '<tr><td style="border: 2px solid #070e96; width: 20%; text-align: center"><button name="send" value="/shop buy" style="background: black; color: white; border-radius: 4px ' + SG.eShop[i].id + '">' + SG.eShop[i].name + '</button></td><td style="border: 2px solid #070e96; width: 70%; text-align: center">' + SG.eShop[i].desc + '</td><td style="border: 2px solid #070e96; width: 10%; text-align: center">' + SG.eShop[i].price + '</td></tr>';
 	}
 	output += '</table></div>';
 	return output;
