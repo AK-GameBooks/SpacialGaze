@@ -430,7 +430,7 @@ exports.commands = {
 					profile += '&nbsp;<font color="#24678d"><b>Friend Code:</b></font> ' + Db.friendcodes.get(toId(username)) +'<br />';
 					
 				} 
-				profile += getteam(toId(username));
+				profile += getteam
 				
 				
 				
