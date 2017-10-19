@@ -6,8 +6,8 @@ const fs = require('fs');
 // Ideally, this should be zero.
 const DEFAULT_AMOUNT = 0;
 
-global.currencyName = 'Stardust';
-global.currencyPlural = 'Stardust';
+global.currencyName = 'IMP Coins';
+global.currencyPlural = 'IMP Coins';
 
 let Economy = global.Economy = {
 	/**
@@ -129,9 +129,8 @@ exports.commands = {
 			//if (this.broadcasting) room.update();
 		});
 	},
-
-	gs: 'givecurrency', //You can change "gs" and "givestardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "ga" and "giveawesomebucks"
-	givestardust: 'givecurrency',
+	gic: 'givecurrency', //You can change "gs" and "givestardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "ga" and "giveawesomebucks"
+	givecoins: 'givecurrency',
 	gc:'givecurrency',
 	givecurrency: function (target, room, user, connection, cmd) {
 		if (!this.can('forcewin')) return false;
@@ -165,8 +164,8 @@ exports.commands = {
 		});
 	},
 
-	ts: 'takecurrency', //You can change "ts" and "takestardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "ta" and "takeawesomebucks"
-	takestardust: 'takecurrency',
+	tic: 'takecurrency', //You can change "ts" and "takestardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "ta" and "takeawesomebucks"
+	takecoins: 'takecurrency',
 	tc:'takecurrency',
 	takecurrency: function (target, room, user, connection, cmd) {
 		if (!this.can('forcewin')) return false;
@@ -201,10 +200,8 @@ exports.commands = {
 		});
 	},
 
-	confirmtransferstardust: 'transfercurrency', //You can change "transferstardust" and "confirmtransferstardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "transferawesomebucks" and "confirmtransferawesomebucks"
-	transferstardust: 'transfercurrency',
-	confirmtransfercurrency: 'transfercurrency',
-	transfercurrency: function (target, room, user, connection, cmd) {
+	transfercoins: "tc", 
+	tc: function (target, room, user, connection, cmd) {
 		if (!target) return this.sendReply("Usage: /" + cmd + " [user], [amount]");
 		let splitTarget = target.split(',');
 		for (let u in splitTarget) splitTarget[u] = splitTarget[u].trim();
