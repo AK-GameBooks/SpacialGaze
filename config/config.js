@@ -4,7 +4,7 @@
 exports.port = 80;
 
 //serverIp for parsing of custom avatars, put your server's ip here
-exports.serverIp = 'imp-server.scalingo-80.psim.us';
+exports.serverIp = 'imp-server.scalingo.io-80.psim.us';
 
 // The server address - the address at which Pokemon Showdown should be hosting
 //   This should be kept set to 0.0.0.0 unless you know what you're doing.
