@@ -27,7 +27,7 @@ function writeShop() {
 }
 
 function shopDisplay() {
-	let output = '<div style="max-height:300px; width: 100%; overflow: scroll"><table style="border:2px solid #101ad1; border-radius: 5px; width: 100%;"><tr><th colspan="3" style="border: 2px solid #070e96; border-radius: 5px">Server Shop</th></tr>';
+	let output = '<div style="max-height:300px; width: 100%; overflow: scroll"><table style="border:1px solid; border-radius: 5px; width: 100%;"><tr><th colspan="3" style="color: dodgerblue"><font size="5"><b>Shop</b></font></th></tr>';
 	for (let i in SG.eShop) {
 		if (!SG.eShop[i]) continue;
 		output += '<tr><td style="border: 2px solid #070e96; width: 20%; text-align: center"><button name="send" value="/eshop buy ' + SG.eShop[i].id + '">' + SG.eShop[i].name + '</button></td><td style="border: 2px solid #070e96; width: 70%; text-align: center">' + SG.eShop[i].desc + '</td><td style="border: 2px solid #070e96; width: 10%; text-align: center">' + SG.eShop[i].price + '</td></tr>';
@@ -106,13 +106,13 @@ try {
 
 exports.commands = {
 	//shop: 'eshop', //Uncomment this if you want this to be able to be used using the /shop command
-	eshop: {
+	shop: {
 		add: function (target, room, user, connection, cmd, message) {
 			if (!this.can('roomowner')) return false;
 			if (!allowThisShop) return this.errorReply('This shop is closed');
 			if (SG.eShop.closed) return this.sendReply('An error closed the shop.');
 			target = target.split(',');
-			if (!target[2]) return this.parse('/eshop help');
+			if (!target[2]) return this.parse('/shop help');
 			if (SG.eShop[toId(target[0])]) return this.errorReply(target[0] + ' is already in the shop.');
 			if (isNaN(Number(target[2]))) return this.parse('/eshop help');
 			let isSSB = false;
@@ -125,7 +125,7 @@ exports.commands = {
 			if (!allowThisShop) return this.errorReply('This shop is closed');
 			if (!this.can('roomowner')) return false;
 			if (SG.eShop.closed) return this.sendReply('An error closed the shop.');
-			if (!target) return this.parse('/eshop help');
+			if (!target) return this.parse('/shop help');
 			if (!SG.eShop[toId(target)]) return this.errorReply(target + ' is not in the shop.');
 			delete SG.eShop[toId(target)];
 			writeShop();
@@ -133,7 +133,7 @@ exports.commands = {
 		},
 		buy: function (target, room, user, connection, cmd, message) {
 			if (!allowThisShop) return this.errorReply('This shop is closed');
-			if (!target) return this.parse('/eshop help buy');
+			if (!target) return this.parse('/shop help buy');
 			if (SG.eShop.closed) return this.sendReply('The shop is closed, come back later.');
 			if (!SG.eShop[toId(target)]) return this.errorReply('Item ' + target + ' not found.');
 			let item = SG.eShop[toId(target)];
