@@ -297,7 +297,6 @@ exports.commands = {
 	taketeam: function (target, room, user) {
 		if (!this.can('broadcast')) return false;
 		if (!target) return this.errorReply('USAGE: /taketeam USER');
-		let user = target.toLowerCase().trim();
 		if (!Db.hasteam.has(user)) return this.errorReply('This user does not have the ability to set their team.');
 		Db.hasteam.delete(user);
 		this.sendReply('this user has had their ability to change their team taken from them.');
@@ -431,9 +430,8 @@ exports.commands = {
 					profile += '&nbsp;<font color="#24678d"><b>Friend Code:</b></font> ' + Db.friendcodes.get(toId(username)) +'<br />';
 					
 				}
-				if (Db.teams.has(toId(username))) { 
-					profile += Db.teams.get(toId(username));
-				}
+				profile += + getteam(toId(username) + '<br />'
+				
 				
 				
 				profile += '<br clear="all">';
