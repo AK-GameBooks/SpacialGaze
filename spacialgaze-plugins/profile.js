@@ -66,7 +66,7 @@ function showBadges(user) {
 	return '';
 }
 
-Profile.prototype.team = function (person) {
+function getteam(user) {
 	let teamcss = 'float:center;border:none;background:none;';
 
 	let noSprite = '<img src=http://play.pokemonshowdown.com/sprites/bwicons/0.png>';
@@ -83,32 +83,32 @@ Profile.prototype.team = function (person) {
 	}
 	//return '<div style="' + teamcss + '">' + '<br>' + iconize(one) + iconize(two) + iconize(three) + '<br>' + iconize(four) + iconize(five) + iconize(six) + '</div>';*/
 	let teamDisplay = '<center><div style="' + teamcss + '">';
-	if (Db.teams.has([person, 'one'])) {
+	if (Db.teams.has([user, 'one'])) {
 		teamDisplay += iconize(one);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db.teams.has([person, 'two'])) {
+	if (Db.teams.has([user, 'two'])) {
 		teamDisplay += iconize(two);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db.teams.has([person, 'three'])) {
+	if (Db.teams.has([user, 'three'])) {
 		teamDisplay += iconize(three);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db.teams.has([person, 'four'])) {
+	if (Db.teams.has([user, 'four'])) {
 		teamDisplay += iconize(four);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db.teams.has([person, 'five'])) {
+	if (Db.teams.has([user, 'five'])) {
 		teamDisplay += iconize(five);
 	} else {
 		teamDisplay += noSprite;
 	}
-	if (Db.teams.has([person, 'six'])) {
+	if (Db.teams.has([user, 'six'])) {
 		teamDisplay += iconize(six);
 	} else {
 		teamDisplay += noSprite;
@@ -289,19 +289,19 @@ exports.commands = {
 		if (!this.can('broadcast')) return false;
 		if (!target) return this.errorReply('USAGE: /giveteam USER');
 		let person = target.toLowerCase().trim();
-			Db.hasteam.set(person, 1);
+			Db.hasteam.set(user, 1);
 		this.sendReply(person + ' has been given the ability to set their team.');
-		Users(person).popup('You have been given the ability to set your profile team.');
+		Users(user).popup('You have been given the ability to set your profile team.');
 	},
 
 	taketeam: function (target, room, user) {
 		if (!this.can('broadcast')) return false;
 		if (!target) return this.errorReply('USAGE: /taketeam USER');
-		let person = target.toLowerCase().trim();
-		if (!Db.hasteam.has(person)) return this.errorReply('This user does not have the ability to set their team.');
-		ha.steam.delete(person);
+		let user = target.toLowerCase().trim();
+		if (!Db.hasteam.has(user)) return this.errorReply('This user does not have the ability to set their team.');
+		Db.hasteam.delete(user);
 		this.sendReply('this user has had their ability to change their team taken from them.');
-		Users(person).popup('You have been stripped of your ability to set your team.');
+		Users(user).popup('You have been stripped of your ability to set your team.');
 	},
 
 	teamhelp: function (target, room, user) {
