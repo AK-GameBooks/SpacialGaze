@@ -408,11 +408,11 @@ class UNOgame extends Rooms.RoomGame {
 			break;
 		case 'Skip':
 			this.onNextPlayer();
-			this.sendToRoom(`|html|${Exiled.nameColor(this.players[this.currentPlayer].name, true, true)}'s turn has been skipped.`);
+			this.sendToRoom(`|html|${SG.nameColor(this.players[this.currentPlayer].name, true, true)}'s turn has been skipped.`);
 			break;
 		case '+2':
 			this.onNextPlayer();
-			this.sendToRoom(`|html|${Exiled.nameColor(this.players[this.currentPlayer].name, true, true)} has been forced to draw 2 cards.`);
+			this.sendToRoom(`|html|${SG.nameColor(this.players[this.currentPlayer].name, true, true)} has been forced to draw 2 cards.`);
 			this.onDrawCard({userid: this.currentPlayer}, 2);
 			break;
 		case '+4':
@@ -420,7 +420,7 @@ class UNOgame extends Rooms.RoomGame {
 			this.state = 'color';
 			// apply to the next in line, since the current player still has to choose the color
 			let next = this.getNextPlayer();
-			this.sendToRoom(`|html|${Exiled.nameColor(this.players[next].name, true, true)} has been forced to draw 4 cards`);
+			this.sendToRoom(`|html|${SG.nameColor(this.players[next].name, true, true)} has been forced to draw 4 cards`);
 			this.onDrawCard({userid: next}, 4);
 			this.isPlusFour = true;
 			this.timer = setTimeout(() => {
