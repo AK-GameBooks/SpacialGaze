@@ -8,7 +8,7 @@ exports.serverIp = 'imp-server.scalingo.io';
 
 // The server address - the address at which Pokemon Showdown should be hosting
 //   This should be kept set to 0.0.0.0 unless you know what you're doing.
-exports.bindaddress = '1.187.21.170/8';
+/*exports.bindaddress = '1.187.21.170/8'; */
 
 // workers - the number of networking child processes to spawn
 //   This should be no greater than the number of threads available on your
@@ -23,7 +23,7 @@ exports.bindaddress = '1.187.21.170/8';
 //   server's CPU is capable of multithreading. If you don't know what any of
 //   this means or you are unfamiliar with PS' networking code, leave this set
 //   to 1.
-exports.workers = 1;
+/*exports.workers = 1; */
 
 // TODO: allow SSL to actually be possible to use for third-party servers at
 // some point.
@@ -167,7 +167,7 @@ exports.tellrank = ' ';
 //   This setting can also be turned on with the command /forcetimer.
 exports.forcetimer = false;
 
-// backdoor - allows Pokemon Showdown system operators to provide technical
+// backdoor - allowhs Pokemon Showdown system operators to provide technical
 //            support for your server
 //   This backdoor gives system operators (such as Zarel) console admin
 //   access to your server, which allow them to provide tech support. This
