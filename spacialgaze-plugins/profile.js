@@ -327,6 +327,46 @@ exports.commands = {
 			this.parse('/profile ' + targetUser);
 		}
 	},
+	crush: {
+		add: 'set',
+		set: function (target, room, user) { 
+			if (!room.battles) return this.errorReply("Please use this command outside of battle rooms"); 
+			if (!user.autoconfirmed) return this.errorReply("You must be autoconfirmed to use this command."); 
+			if (!target) return this.parse('/help', true); 
+			let crush = target; 
+			Db.crush.set(toId(user), crush); 
+			return this.sendReply("Your crush " + crush + " has been saved to the server."); 
+		}, 
+	remove: "delete", 
+	delete: function (target, room, user) { 
+		if (!target) { 
+		if(!Db.crush.has(toId(user))) return this.errorReply("Your crush isn't set");
+			Db.crush.remove(toId(userid)); 
+			return this.sendReply("Your crush has been removed"); 
+		} else {
+				if (!this.can('lock')) return false;
+				let userid = toId(target);
+				if (!Db.crush.has(userid)) return this.errorReply(userid + " hasn't set a crush.");
+				Db.crush.remove(userid);
+				return this.sendReply(userid + "'s crush has been deleted from the server.");
+			}
+	},
+	'': 'help',
+	help: function (target, room, user) {
+		if (room.battle) return this.errorReply("Please use this command outside of battle rooms.");
+		if (!user.autoconfirmed) return this.errorReply("You must be autoconfirmed to use this command.");
+		return this.sendReplyBox(
+				'<center><code>crush</code> Commands<br />' +
+				'All commands are nestled under the namespace <code>crush</code>.</center>' +
+				'<hr width="100%">' +
+				'<code>[add|set] [crush]</code>: Sets your crush.' +
+				'<br />' +
+				'<code>[remove|delete]</code>: Removes your crush. Global staff can include <code>[username]</code> to delete a user\'s crush.' +
+				'<br />' +
+				'<code>help</code>: Displays this help command.'
+			);
+		},
+	},
 	fc: 'friendcode',
 	friendcode: {
 		add: 'set',
@@ -426,10 +466,14 @@ exports.commands = {
 				profile += '&nbsp;<font color="#24678d"><b>Registered:</b></font> ' + regdate + '<br />';
 				profile += '&nbsp;<font color="#24678d"><b>' + global.currencyPlural + ':</b></font> ' + currency + '<br />';
 				profile += '&nbsp;<font color="#24678d"><b>Last Seen:</b></font> ' + getLastSeen(toId(username)) + '</font><br />';
+				if (Db.crush.has(toId(username))) {
+					profile += '&nbsp;<font color="#24678d"><b>Crush:</b></font> ' + Db.crush.get(toId(username)) +'<br />';
+					
+				} /*
 				if (Db.friendcodes.has(toId(username))) {
 					profile += '&nbsp;<font color="#24678d"><b>Friend Code:</b></font> ' + Db.friendcodes.get(toId(username)) +'<br />';
 					
-				} /*
+				}*/ /*
 				profile += getteam(user)*/
 				
 				

@@ -5,7 +5,26 @@ This plugin allows you to use emoticons in both chat rooms (as long as they are 
 'use strict';
 
 const fs = require('fs');
-let emoticons = {'feelsbd': 'http://i.imgur.com/TZvJ1lI.png'};
+let emoticons = {'feelsbd': 'https://cdn.betterttv.net/emote/55b6e2e03293ee267743902b/2x', 'xaa': 'https://m.imgur.com/V728AvL?r',
+		 'feelscrazy': 'http://i.imgur.com/NiJsT5W.png',
+		 'feelsterrible': 'http://i.imgur.com/oA780DR.png',
+		 'feelsshake': 'http://i.imgur.com/OUdKETM.gif',
+		 'feelsgd': 'https://m.imgur.com/87zXwfR?r',
+		 'obama': 'http://i.imgur.com/rBA9M7A.png'
+		 'facepalm': 'https://m.imgur.com/lv3GmpM?r',
+		 'kappa': 'https://m.imgur.com/ZxRU4z3?r',
+		 'feelsded': 'http://i.imgur.com/Pe82uO4.png',
+		 'feelspride': 'http://i.imgur.com/IVzXwJL.gif',
+		 'feelsno': 'http://i.imgur.com/oSeraFB.gif',
+		 'feelscool': 'https://m.imgur.com/YVI1AzR?r',
+		 'feelsyeah': 'http://i.imgur.com/0jjBGHL.gif',
+		 'feelsbetrayed': 'https://m.imgur.com/a7K7wfv?r',
+		 'feelscry': 'http://i.imgur.com/C6Ifzu1.png',
+		 'feelsrage': 'http://i.imgur.com/X1iotmp.gif',
+		 'feelsstealing': 'https://40.media.tumblr.com/adbcc98351874eb6d372d3602e9ce055/tumblr_nvjksd3Ev41ufnh57o1_1280.jpg',
+		 'feelsgd': 'http://i.imgur.com/j1Q2Opu.png'};
+		 
+		 
 let emoteRegex = new RegExp('feelsbd', 'g');
 SG.ignoreEmotes = {};
 try {
