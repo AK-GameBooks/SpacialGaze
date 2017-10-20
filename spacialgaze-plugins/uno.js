@@ -507,12 +507,6 @@ class UNOgame extends Rooms.RoomGame {
 
 	onWin(player) {
 		this.sendToRoom(`|raw|<div class="broadcast-blue">Congratulations to ${SG.nameColor(player.name, true, true)} for winning the game of UNO!</div>`, true);
-		let targetUserid = toId(player.name);
-		let prize = 2;
-		prize += Math.floor(this.playerCount / 5);
-		if (Db('userBadges').has(targetUserid) && Db('userBadges').get(targetUserid).indexOf('Uno Champion') > -1) prize = Math.ceil(prize * 1.5);
-		if (Users(targetUserid).unoBoost) prize *= 2;
-		if (Users(targetUserid).gameBoost) prize *= 2;
 		this.destroy();
 	}
 
