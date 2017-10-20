@@ -61,7 +61,7 @@ function display(result, user, slotOne, slotTwo, slotThree) {
 	}
 	if (result) {
 		display += 'Congratulations, <b><font color="' + color(user) + '">' + user + '</font></b>. You have won ' +
-		slots[slotOne] + ' bucks!!</font>';
+		slots[slotOne] + ' coins!!</font>';
 	}
 	return display + '</div>';
 }
@@ -74,15 +74,15 @@ exports.commands = {
 			if (!this.runBroadcast()) return false;
 			if (!this.canTalk()) return this.errorReply('/slots spin - Access Denied.');
 
-			const amount = Db('money').get(user.userid, 0);
-			if (amount < 3) return this.errorReply('You don\'t have enough bucks to play this game. You need ' + (3 - amount) + moneyName(amount) + ' more.');
+			const amount = Db.money.get(user.userid, 0);
+			if (amount < 3) return this.errorReply('You don\'t have enough imp coins to play this game. You need ' + (3 - amount) + moneyName(amount) + ' more.');
 
 			const result = spin();
 			const chancePercentage = rng();
 			const chancesGenerated = 70 + availableSlots.indexOf(result) * 3;
 
 			if (chancePercentage >= chancesGenerated) {
-				Db('money').set(user.userid, (amount + slots[result]));
+				Db.money.set(user.userid, (amount + slots[result]));
 				return this.sendReplyBox(display(true, user.name, result, result, result));
 			}
 
@@ -94,8 +94,7 @@ exports.commands = {
 			while (outcomeOne === outcomeTwo === outcomeThree) {
 				outcomeOne = spin();
 			}
-
-			Db('money').set(user.userid, (amount - 3));
+			Db.money.set(user.userid, (amount - 3));
 			return this.sendReplyBox(display(false, user.name, outcomeOne, outcomeTwo, outcomeThree));
 		},
 		'': function (target, room, user) {
