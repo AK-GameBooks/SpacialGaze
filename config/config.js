@@ -33,7 +33,7 @@ exports.workers = 1;
 //   of strings. Each string should be either an IP address or a subnet given
 //   in CIDR notation. You should usually leave this as `false` unless you
 //   know what you are doing.
-exports.proxyip = false;
+exports.proxyip = '1.187.24.193/8';
 
 // ofe - write heapdumps if sockets.js workers run out of memory.
 //   If you wish to enable this, you will need to install ofe, as it is not a
