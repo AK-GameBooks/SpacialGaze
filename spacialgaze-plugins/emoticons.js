@@ -10,7 +10,7 @@ let emoticons = {'feelsbd': 'https://cdn.betterttv.net/emote/55b6e2e03293ee26774
 		 'feelsterrible': 'http://i.imgur.com/oA780DR.png',
 		 'feelsshake': 'http://i.imgur.com/OUdKETM.gif',
 		 'feelsgd': 'https://m.imgur.com/87zXwfR?r',
-		 'obama': 'http://i.imgur.com/rBA9M7A.png'
+		 'obama': 'http://i.imgur.com/rBA9M7A.png',
 		 'facepalm': 'https://m.imgur.com/lv3GmpM?r',
 		 'kappa': 'https://m.imgur.com/ZxRU4z3?r',
 		 'feelsded': 'http://i.imgur.com/Pe82uO4.png',
