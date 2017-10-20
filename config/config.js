@@ -8,7 +8,7 @@ exports.serverIp = 'imp-server.scalingo.io';
 
 // The server address - the address at which Pokemon Showdown should be hosting
 //   This should be kept set to 0.0.0.0 unless you know what you're doing.
-/*exports.bindaddress = '1.187.21.170/8'; */
+exports.bindaddress = '0.0.0.0';
 
 // workers - the number of networking child processes to spawn
 //   This should be no greater than the number of threads available on your
@@ -33,7 +33,7 @@ exports.serverIp = 'imp-server.scalingo.io';
 //   of strings. Each string should be either an IP address or a subnet given
 //   in CIDR notation. You should usually leave this as `false` unless you
 //   know what you are doing.
-exports.proxyip = '1.187.21.170/8';
+exports.proxyip = '10.69.187.242/8';
 
 // ofe - write heapdumps if sockets.js workers run out of memory.
 //   If you wish to enable this, you will need to install ofe, as it is not a
