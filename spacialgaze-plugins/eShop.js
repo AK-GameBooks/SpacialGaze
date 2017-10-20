@@ -27,10 +27,10 @@ function writeShop() {
 }
 
 function shopDisplay() {
-	let output = '<div style="max-height:300px; width: 100%; overflow: scroll"><table style="border:1px solid; border-radius: 4px; width: 100%; background: lightblue;"><tr><th colspan="3" style="color: black"><font size="4"><b>Impulse Shop</b></font></th></tr>';
+	let output = '<div style="max-height:300px; width: 100%; overflow: scroll"><table style="border:1px black; border-radius: 4px; width: 100%; background: transparent;"><tr><th colspan="3" style="color: black"><font size="4"><b>Impulse Shop</b></font></th></tr>';
 	for (let i in SG.eShop) {
 		if (!SG.eShop[i]) continue;
-		output += '<tr><td style="border: 2px solid #070e96; width: 20%; text-align: center"><button name="send" value="/shop buy" style="background: black; color: white; border-radius: 4px ' + SG.eShop[i].id + '">' + SG.eShop[i].name + '</button></td><td style="border: 2px solid #070e96; width: 70%; text-align: center">' + SG.eShop[i].desc + '</td><td style="border: 2px solid #070e96; width: 10%; text-align: center">' + SG.eShop[i].price + '</td></tr>';
+		output += '<tr><td style="border: 2px solid #070e96; width: 20%; text-align: center"><button name="send" value="/shop buy" style="background: dodgerblue; border-radius: 6px ' + SG.eShop[i].id + '">' + SG.eShop[i].name + '</button></td><td style="border: 2px solid #000; width: 70%; text-align: center">' + SG.eShop[i].desc + '</td><td style="border: 2px solid #070e96; width: 10%; text-align: center">' + SG.eShop[i].price + '</td></tr>';
 	}
 	output += '</table></div>';
 	return output;
@@ -210,13 +210,13 @@ exports.commands = {
 		},
 		help: function (target, room, user, connection, cmd, message) {
 			let reply = '<b>Shop commands</b><br/>';
-			reply += '/eshop - Load the shop screen.<br/>';
-			reply += '/eshop buy [item] - Buy an item from the shop.<br/>';
+			reply += '/shop - Load the shop screen.<br/>';
+			reply += '/shop buy [item] - Buy an item from the shop.<br/>';
 			if (user.can('roomowner')) {
 				reply += '<b>Administrative shop commands:</b><br/>';
-				reply += '/eshop add [item name], [description], [price], (is a SSBFFA item) - Adds a item to the shop.<br/>';
+				reply += '/shop add [item name], [description], [price], (is a SSBFFA item) - Adds a item to the shop.<br/>';
 				reply += 'Valid SSBFFA items are: shiny, ffacustommove, customitem, customability, custommove.<br/>';
-				reply += '/eshop remove [item] - removes a item from the shop.<br/>';
+				reply += '/shop remove [item] - removes a item from the shop.<br/>';
 			}
 			return this.sendReplyBox(reply);
 		},
