@@ -330,8 +330,8 @@ exports.commands = {
 	crush: {
 		add: 'set',
 		set: function (target, room, user) { 
-			if (!room.battles) return this.errorReply("Please use this command outside of battle rooms"); 
-			if (!user.autoconfirmed) return this.errorReply("You must be autoconfirmed to use this command."); 
+			/* if (!room.battles) return this.errorReply("Please use this command outside of battle rooms"); */
+			/*if (!user.autoconfirmed) return this.errorReply("You must be autoconfirmed to use this command."); */
 			if (!target) return this.parse('/help', true); 
 			let crush = target; 
 			Db.crush.set(toId(user), crush); 
