@@ -4,7 +4,7 @@
 exports.port = 80;
 
 //serverIp for parsing of custom avatars, put your server's ip here
-exports.serverIp = 'ak-gamebook.scalingo.io';
+exports.serverIp = 'ak-gamebooks.scalingo.io';
 
 // The server address - the address at which Pokemon Showdown should be hosting
 //   This should be kept set to 0.0.0.0 unless you know what you're doing.
@@ -216,7 +216,7 @@ exports.loguserstats = 1000 * 60 * 10; // 10 minutes
 exports.validatorprocesses = 1;
 exports.simulatorprocesses = 1;
 
-// inactiveuserthreshold - how long a user must be inactive before being pruned
+// inactiveuserthreshold - how long a user mujst be inactive before being pruned
 // from the `users` array. The default is 1 hour.
 exports.inactiveuserthreshold = 1000 * 60 * 60;
 
